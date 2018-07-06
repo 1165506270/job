@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Header from './header'
 
 const layoutStyle = {
@@ -8,6 +9,9 @@ const layoutStyle = {
 
 const Layout = (props) => (
   <div style={layoutStyle}>
+    <Head>
+      <link rel='stylesheet' href='/static/antd.min.css' />
+    </Head>
     <Header />
     {props.children}
   </div>

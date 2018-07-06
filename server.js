@@ -1,8 +1,8 @@
 const next = require('next')
 const Koa = require('koa')
 const router = require('koa-router')()
+const proxy = require('koa-proxies')
 const LRUCache = require('lru-cache')
-
 const port = parseInt(process.env.PORT, 10) || 8868
 const dev = process.env.NODE_ENV !== 'production'
 const test = process.env.NODE_TEST === 'test'
@@ -68,7 +68,16 @@ app.prepare()
         const queryParams = { title: ctx.params.id}
         return renderAndCache(ctx, actualPage, null, queryParams)
     })
-    
+    server.use(proxy('/api', {
+      target: 'http://127.0.0.1:9093/',    
+      changeOrigin: true,
+      rewrite: path => {
+        let con = path.replace(/^\/api/, '')
+        console.log(con)
+        return con
+      },
+      logs: true
+    }));
     server.use(router.routes());
     server.use(router.allowedMethods());
     server.use(async (ctx) => {

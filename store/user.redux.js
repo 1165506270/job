@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {userLogin, userUpdate, userRegister} from '../api/user'
+import {userLogin, userTest, userUpdate, userRegister} from '../api/user'
 import {getRedirectPath} from '../lib/util'
 // const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'

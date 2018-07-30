@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Header from './header'
+// import Header from './header'
 
 const layoutStyle = {
   margin: 20,
@@ -12,7 +12,7 @@ const Layout = (props) => (
     <Head>
       <link rel='stylesheet' href='/static/antd.min.css' />
     </Head>
-    <Header />
+    {/* <Header /> */}
     {props.children}
   </div>
 )

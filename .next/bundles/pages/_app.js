@@ -3,6 +3,23 @@ __NEXT_REGISTER_PAGE('/_app', function() {
           var comp =
       webpackJsonp([1],{
 
+/***/ "./api/common.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getPosition; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getIndustry; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_http__ = __webpack_require__("./lib/http.js");
+
+var getPosition = function getPosition(_) {
+  return __WEBPACK_IMPORTED_MODULE_0__lib_http__["a" /* default */].get('/static/position.json');
+};
+var getIndustry = function getIndustry(_) {
+  return __WEBPACK_IMPORTED_MODULE_0__lib_http__["a" /* default */].get('/static/industry.json');
+};
+
+/***/ }),
+
 /***/ "./api/user.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -23,7 +40,7 @@ var userUpdate = function userUpdate(data) {
   return __WEBPACK_IMPORTED_MODULE_0__lib_http__["a" /* default */].post('/user/update', data);
 };
 var userRegister = function userRegister(data) {
-  return __WEBPACK_IMPORTED_MODULE_0__lib_http__["a" /* default */].post('/user/register', data);
+  return __WEBPACK_IMPORTED_MODULE_0__lib_http__["a" /* default */].post('/register', data);
 };
 
 /***/ }),
@@ -49,8 +66,14 @@ var callApi = function callApi(url, method, data) {
   var opts = _objectSpread({}, options);
 
   console.log(url);
+  var baseURL = '';
+
+  if (!url.includes('.json')) {
+    baseURL = '/api';
+  }
+
   return __WEBPACK_IMPORTED_MODULE_0_axios___default()(Object.assign({}, {
-    baseURL: '/api',
+    baseURL: baseURL,
     url: url,
     method: method,
     params: method === 'get' ? data : {},
@@ -87,7 +110,7 @@ var callApi = function callApi(url, method, data) {
     return callApi(url, 'delete', data, isServer);
   }
 });
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/node-libs-browser/node_modules/process/browser.js")))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -127,7 +150,7 @@ function getChatId(userId, targetId) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store_store__ = __webpack_require__("./store/store.js");
 
-var _jsxFileName = "D:\\x\u5B66\u4E60\\job\\lib\\with-redux-store.js";
+var _jsxFileName = "F:\\\u4E2A\u4EBA\\lunwen\\job\\lib\\with-redux-store.js";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -1100,7 +1123,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/node-libs-browser/node_modules/process/browser.js")))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -4334,7 +4357,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_with_redux_store__ = __webpack_require__("./lib/with-redux-store.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_redux__ = __webpack_require__("./node_modules/react-redux/es/index.js");
-var _jsxFileName = "D:\\x\u5B66\u4E60\\job\\pages\\_app.js";
+var _jsxFileName = "F:\\\u4E2A\u4EBA\\lunwen\\job\\pages\\_app.js";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -4421,6 +4444,71 @@ function (_App) {
 
 /***/ }),
 
+/***/ "./store/global.redux.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["c"] = setPosition;
+/* harmony export (immutable) */ __webpack_exports__["b"] = setIndustry;
+/* harmony export (immutable) */ __webpack_exports__["a"] = global;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__api_common__ = __webpack_require__("./api/common.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var SET_POSITION = 'SET_POSITION';
+var SET_INDUSTRY = 'SET_INDUSTRY';
+var initState = {
+  position: [],
+  industry: []
+};
+function setPosition() {
+  return function (dispatch) {
+    Object(__WEBPACK_IMPORTED_MODULE_0__api_common__["b" /* getPosition */])().then(function (res) {
+      var data = res.data;
+      dispatch({
+        type: SET_POSITION,
+        payload: {
+          position: data
+        }
+      });
+    });
+  };
+}
+function setIndustry() {
+  return function (dispatch) {
+    Object(__WEBPACK_IMPORTED_MODULE_0__api_common__["a" /* getIndustry */])().then(function (res) {
+      var data = res.data;
+      console.log(data);
+      dispatch({
+        type: SET_INDUSTRY,
+        payload: {
+          industry: data
+        }
+      });
+    });
+  };
+} //reducer
+
+function global() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case SET_POSITION:
+      return _objectSpread({}, state, action.payload);
+
+    case SET_INDUSTRY:
+      return _objectSpread({}, state, action.payload);
+
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+
 /***/ "./store/store.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4431,6 +4519,8 @@ function (_App) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux_devtools_extension___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_redux_devtools_extension__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_thunk__ = __webpack_require__("./node_modules/redux-thunk/es/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__user_redux__ = __webpack_require__("./store/user.redux.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__global_redux__ = __webpack_require__("./store/global.redux.js");
+
 
 
 
@@ -4440,7 +4530,8 @@ function (_App) {
 
 function initializeStore() {
   return Object(__WEBPACK_IMPORTED_MODULE_0_redux__["createStore"])(Object(__WEBPACK_IMPORTED_MODULE_0_redux__["combineReducers"])({
-    user: __WEBPACK_IMPORTED_MODULE_3__user_redux__["b" /* user */]
+    user: __WEBPACK_IMPORTED_MODULE_3__user_redux__["a" /* user */],
+    global: __WEBPACK_IMPORTED_MODULE_4__global_redux__["a" /* global */]
   }), Object(__WEBPACK_IMPORTED_MODULE_1_redux_devtools_extension__["composeWithDevTools"])(Object(__WEBPACK_IMPORTED_MODULE_0_redux__["applyMiddleware"])(__WEBPACK_IMPORTED_MODULE_2_redux_thunk__["a" /* default */])));
 }
 
@@ -4451,11 +4542,11 @@ function initializeStore() {
 
 "use strict";
 /* unused harmony export regisger */
-/* harmony export (immutable) */ __webpack_exports__["a"] = loginfn;
+/* unused harmony export loginfn */
 /* unused harmony export logoutSubmit */
 /* unused harmony export update */
 /* unused harmony export loadData */
-/* harmony export (immutable) */ __webpack_exports__["b"] = user;
+/* harmony export (immutable) */ __webpack_exports__["a"] = user;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__("./node_modules/axios/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__api_user__ = __webpack_require__("./api/user.js");
@@ -4486,15 +4577,12 @@ function regisger(_ref) {
       pwd = _ref.pwd,
       repeatpwd = _ref.repeatpwd,
       type = _ref.type;
-
-  if (!user || !pwd || !type) {
-    return errorMsg('用户名密码必须输入');
-  }
-
-  if (pwd !== repeatpwd) {
-    return errorMsg('密码和确认密码不相同');
-  }
-
+  // if (!user || !pwd || !type) {
+  //     return errorMsg('用户名密码必须输入')
+  // }
+  // if (pwd !== repeatpwd) {
+  //     return errorMsg('密码和确认密码不相同')
+  // }
   return function (dispatch) {
     Object(__WEBPACK_IMPORTED_MODULE_1__api_user__["b" /* userRegister */])({
       user: user,

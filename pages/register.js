@@ -2,7 +2,7 @@ import {connect} from 'react-redux'
 import React from 'react'
 import { Form, Icon, Input, Button, Checkbox, Radio } from 'antd';
 import Layout from '../components/usercenterLayout'
-import {loginfn} from '../store/user.redux'
+import {regisger} from '../store/user.redux'
 
 const FormItem = Form.Item;
 class Demo extends React.Component {
@@ -11,8 +11,8 @@ class Demo extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                let {userName: user, password: pwd} = values;
-                this.props.loginfn({user, pwd})
+                let {userName: user, password: pwd, type} = values;
+                this.props.regisger({user, pwd, type})
             console.log('Received values of form: ', values);
             }
         });
@@ -24,7 +24,7 @@ class Demo extends React.Component {
             <Layout>
                 <div className="login-form">
                     <Form onSubmit={this.handleSubmit}>
-                        <h3>登录</h3>
+                        <h3>注册</h3>
                         <FormItem>
                         {getFieldDecorator('userName', {
                             rules: [{ required: true, message: '请输入账号' }],
@@ -41,26 +41,18 @@ class Demo extends React.Component {
                         </FormItem>
                         <FormItem>
                         {getFieldDecorator('type', {
-                            initialValue: 0,
+                            initialValue: 1,
                         })(
-                            <Radio.Group defaultValue={0}>
+                            <Radio.Group>
                                 <Radio value={0}>个人</Radio>
                                 <Radio value={1}>企业</Radio>
                             </Radio.Group>
                         )}
                         </FormItem>
-                        <FormItem>
-                        {getFieldDecorator('remember', {
-                            valuePropName: 'checked',
-                            initialValue: true,
-                        })(
-                            <Checkbox>记住我</Checkbox>
-                        )}
-                        <a className="login-form-forgot" href="">忘记密码</a>
+                        <FormItem> 
                         <Button type="primary" htmlType="submit" className="login-form-button">
                             登录
                         </Button>
-                        或者 <a href="/register">注册</a>
                         </FormItem>
                     </Form>
                 </div>
@@ -96,7 +88,7 @@ class Demo extends React.Component {
         );
     }
 }
-const WrappedNormalLoginForm = connect(state => state.user, {loginfn})(Demo)
+const WrappedNormalLoginForm = connect(state => state.user, {regisger})(Demo)
 export default Form.create()(WrappedNormalLoginForm);
 // export default () => {
 //     return (

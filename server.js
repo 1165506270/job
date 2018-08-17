@@ -68,6 +68,11 @@ app.prepare()
         const queryParams = { title: ctx.params.id}
         return renderAndCache(ctx, actualPage, null, queryParams)
     })
+    router.get('/jobDetail/:id', ctx => {
+      const actualPage = '/jobDetail'
+      const queryParams = { id: ctx.params.id}
+      return renderAndCache(ctx, actualPage, null, queryParams)
+  })
     server.use(proxy('/api', {
       target: 'http://127.0.0.1:7001/',    
       changeOrigin: true,

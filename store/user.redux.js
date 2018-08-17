@@ -16,12 +16,12 @@ const initState={
 
 
 export function regisger({user, pwd, repeatpwd, type}) {
-    if (!user || !pwd || !type) {
-        return errorMsg('用户名密码必须输入')
-    }
-    if (pwd !== repeatpwd) {
-        return errorMsg('密码和确认密码不相同')
-    }
+    // if (!user || !pwd || !type) {
+    //     return errorMsg('用户名密码必须输入')
+    // }
+    // if (pwd !== repeatpwd) {
+    //     return errorMsg('密码和确认密码不相同')
+    // }
     return dispatch=> {
         userRegister({user, pwd, type}).then(res => {
                 if (res.status === 200 && res.data.code === 0) {

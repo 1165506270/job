@@ -21,28 +21,30 @@ class Index extends React.Component {
     console.log(this)
       return (
         <Layout>
-          <div className="fl">
-            <JobMenu position = {this.props.position}></JobMenu>
-          </div>
-          <div className="fr content">
-            <SearchInput position = {this.props.position} />
-            <Tabs>
-              {
-                this.props.industry.map(item => (
-                  <TabPane tab={item.name} key={item.code}>
-                    <Row gutter={16}>
-                    {
-                      this.props.industry.map((_) => (
-                        <Col span={8}>
-                          <JobCard />
-                        </Col>
-                      ))
-                    }
-                    </Row>
-                  </TabPane>
-                ))
-              }
-            </Tabs>
+          <div className="inner">
+            <div className="fl">
+              <JobMenu position = {this.props.position}></JobMenu>
+            </div>
+            <div className="fr content">
+              <SearchInput position = {this.props.position} />
+              <Tabs>
+                {
+                  this.props.industry.map(item => (
+                    <TabPane tab={item.name} key={item.code}>
+                      <Row gutter={16}>
+                      {
+                        this.props.industry.map((_) => (
+                          <Col span={8}>
+                            <JobCard />
+                          </Col>
+                        ))
+                      }
+                      </Row>
+                    </TabPane>
+                  ))
+                }
+              </Tabs>
+            </div>
           </div>
             <style jsx>{`
               .content{
@@ -50,7 +52,13 @@ class Index extends React.Component {
                 padding-top: 20px;
                 padding-left: 15px;
               }
-            
+              .inner {
+                width: 1000px;
+                margin: 0 auto;
+              }
+              .home-inner {
+                  max-width: 1000px;
+              }
             `}</style>
         </Layout>
       )

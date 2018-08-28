@@ -25,7 +25,7 @@ class SearchInput extends React.Component {
         return (
             <InputGroup compact>
                 <Input style={{ width: '60%' }} size="large" onChange={this.handleTextChange.bind(this)}/>
-                <Cascader style={{ width: '25%' }} size="large" onChange={this.handleJobCodeChange.bind(this)} options={this.props.position} fieldNames={{ label: 'name', value: 'code', children: 'subLevelModelList' }}/>
+                <Cascader placeholder="选择职业" style={{ width: '25%' }} size="large" onChange={this.handleJobCodeChange.bind(this)} options={this.props.position} fieldNames={{ label: 'name', value: 'code', children: 'subLevelModelList' }}/>
                 <Button style={{ width: '15%' }} size="large">搜索</Button>
             </InputGroup>
         )

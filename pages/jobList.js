@@ -1,5 +1,5 @@
 import React from 'react'
-import {Select, Row, Col} from 'antd'
+import {Select, Row, Col, Pagination} from 'antd'
 import {connect} from 'react-redux'
 import Layout from '../components/layout'
 import InputSearch from '../components/searchInput'
@@ -54,14 +54,14 @@ class JobList extends React.Component{
                 </div>
                 <div className="main">
                     {
-                        this.props.industry.map(item => (
-                            <Row gutter={16}>
+                        this.props.industry.slice(0,3).map(item => (
+                            <Row gutter={16}  key={item.code}>
                             {
-                            this.props.industry.map((item) => (
-                                <Col span={8}>
-                                    <Link as={`/jobDetail/${item.code}`} href={`/jobDetail?id=${item.code}`}>
+                            this.props.industry.slice(0,3).map((item) => (
+                                <Col span={8} key={item.code}>
+                                    <Link as={`/jobDetail/${item.code}`}  href={`/jobDetail?id=${item.code}`}>
                                         <a>
-                                            <JobCard />
+                                            <JobCard id={item.code}/>
                                         </a>
                                     </Link>
                                 </Col>
@@ -70,6 +70,7 @@ class JobList extends React.Component{
                             </Row>
                         ))
                     }
+                    <Pagination defaultCurrent={1} total={50} />
                 </div>
                 <style jsx>{`
                     .main-top{

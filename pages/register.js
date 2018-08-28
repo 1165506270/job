@@ -51,7 +51,7 @@ class Demo extends React.Component {
                         </FormItem>
                         <FormItem> 
                         <Button type="primary" htmlType="submit" className="login-form-button">
-                            登录
+                            注册
                         </Button>
                         </FormItem>
                     </Form>

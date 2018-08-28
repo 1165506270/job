@@ -2,6 +2,9 @@
     margin:0;
     padding: 0;
 }
+body{
+    background:#f0f2f5;
+}
 ul,li{
     list-style: none;
 }
@@ -23,3 +26,6 @@ ul,li{
     *zoom: 1
   }
   body{min-height:100%;margin:0;padding:0;position:relative;}
+  .text-left{
+      text-align: left;
+  }

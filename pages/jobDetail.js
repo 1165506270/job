@@ -17,6 +17,8 @@ const Post =  (props) => (
                 <div className="clearfix">
                         <h2 className="name fl">许翔<i class="icon-vip"></i></h2>
                         <Button className="fr" size="large">立即沟通</Button>
+                        <Button className="fr" size="large" style={{marginRight: 10}}>申请职位</Button>
+                        
                 </div>
                 <div className="detail-content">
                     

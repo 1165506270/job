@@ -21,3 +21,8 @@ export const education = [
     {value: 6, lable: '研究生'},
     {value: 7, lable: '博士'},
 ]
+export const applyStatus = [
+    {value: 0, lable: '在职考虑机会'},
+    {value: 1, lable: '离职'},
+    {value: 2, lable: '在职暂不考虑'},
+]
